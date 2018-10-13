@@ -1,2 +1,3 @@
 # Places-Project
-Android Programming Final Project A John Bryce
+Java
+Android Programming Final Project (JB)
