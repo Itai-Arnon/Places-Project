@@ -24,7 +24,7 @@ public class PowerConnectionReceiver extends BroadcastReceiver {
 
         } else if (action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
             // Do something when power disconnected
-            Toast.makeText(context,  "AC Power has be Disconnected", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, (String) "AC Power has be Disconnected", Toast.LENGTH_LONG).show();
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(1000);
         }

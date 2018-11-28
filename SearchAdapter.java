@@ -26,8 +26,10 @@ import android.widget.Toast;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
     private ArrayList<Place> placesData;
-    private Listener listener; //instance of the interface
-    private LongClickListener longListener; //instance of the interface
+    private Listener listener;
+    private LongClickListener longListener;
+    //instance of the interface
+    // private LongClickListener longListener; //instance of the interface
 
 
     public SearchAdapter(ArrayList<Place> placesList, Listener listener, LongClickListener longListener) {
@@ -36,6 +38,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         this.listener = listener;
         this.longListener = longListener;
     }
+
+
 
 
     @Override
@@ -50,8 +54,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             public void onClick(View v) {
 
                 Place place = placesData.get(VH.getAdapterPosition());//in case pData is empty or emptied
-                if (listener != null && place != null)
-                    // onLocation will be defined fully in fragment1
+                if (listener != null && place!=null)
                     listener.onLocation(place);
             }
 
@@ -62,8 +65,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             @Override
             public boolean onLongClick(View v) {
                 Place place = placesData.get(VH.getAdapterPosition());//in case pData is empty or emptied
-                if (longListener != null && place != null)
-                    // onLongLocation will be defined fully in fragment1
+                if (longListener != null  && place!=null)
                     longListener.onLongLocation(place);
                 return false;
             }
@@ -71,8 +73,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         return VH;
     }
 
-    //ViewHolder is used to populate the CardView
-    //Every card in the adapter goes through this process
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         TextView placeName;
@@ -85,16 +85,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             placeName = cardView.findViewById(R.id.PlaceName);
             address1 = cardView.findViewById(R.id.address);
             city = cardView.findViewById(R.id.city);
-
             placeName.setText(place.getName());
             address1.setText(place.getAddress());
             city.setText(place.getCity());
 
+
+            /*the image is a const at the moment*/
         }
 
     }
 
-    //counts the amount of items in given data
     @Override
     public int getItemCount() {
         return placesData.size();
@@ -105,14 +105,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         void onLocation(Place place);
     }
-
     public interface LongClickListener {
 
         boolean onLongLocation(Place place);
     }
 
-    // ViewHolder is the link between the adapter and the CardView
-    class ViewHolder extends RecyclerView.ViewHolder {
+     class ViewHolder extends RecyclerView.ViewHolder {
         private CardView mItemView;
 
         public ViewHolder(CardView itemView) {

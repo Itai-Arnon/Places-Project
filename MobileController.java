@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.project.itai.FindAPlace.fragments.Fragment1;
 import com.project.itai.FindAPlace.activities.SecondActivity;
 import com.google.android.gms.maps.model.LatLng;
 import com.project.itai.FindAPlace.fragments.IUserActionsOnMap;

@@ -16,14 +16,14 @@ public class PlacesDBHelper extends SQLiteOpenHelper {
             factory, int version) {
         super(context, name, factory, version);
     }
-//creation of the SQL DataBase
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d(LOG_TAG, "Creating all the tables");
         String CREATE_PLACES_TABLE = " CREATE TABLE " + PlacesConstants.TABLE_NAME +
                 "(" + PlacesConstants.PLACES_ID + " INTEGER PRIMARY KEY, " + PlacesConstants.PLACES_NAME + " TEXT, "
                 + PlacesConstants.PLACES_LATITUDE + " REAL, "+ PlacesConstants.PLACES_LONGTITUDE+ " REAL, "
-                + PlacesConstants.PLACES_ADDRESS + " TEXT, " + PlacesConstants.PLACES_CITY+ " TEXT, " + PlacesConstants.PLACES_URL +" TEXT)";
+                + PlacesConstants.PLACES_ADDRESS + " TEXT, " + PlacesConstants.PLACES_CITY+ " TEXT, " + PlacesConstants.PLACES_URL +" TEXT )";
 
 
         try {
@@ -33,7 +33,7 @@ public class PlacesDBHelper extends SQLiteOpenHelper {
                     ex.getMessage());
         }
     }
-//Upgrade of the Data Table
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int
             newVersion) {

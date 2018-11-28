@@ -1,6 +1,5 @@
 package com.project.itai.FindAPlace.activities;
 
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -9,8 +8,9 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import android.support.v4.app.Fragment;
@@ -20,78 +20,58 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import android.support.v7.widget.ShareActionProvider;//ShareProvider
+import android.support.v7.widget.Toolbar;
 
 
-import com.project.itai.FindAPlace.fragments.IUserActionsOnMap;//map interface
-
+import com.project.itai.FindAPlace.beans.Place;
 import com.project.itai.FindAPlace.controllers.ControllersFactory;
 import com.project.itai.FindAPlace.dao.PlacesDao;
 import com.project.itai.FindAPlace.fragments.FavoritesFrag;
 import com.project.itai.FindAPlace.fragments.Fragment1;
-
 import com.project.itai.FindAPlace.R;
+import com.project.itai.FindAPlace.fragments.Fragment1;
+import com.project.itai.FindAPlace.fragments.IUserActionsOnMap;
 import com.project.itai.FindAPlace.receiver.PowerConnectionReceiver;
 import com.google.android.gms.maps.model.LatLng;
+import android.support.v7.app.ActionBar;
 
 
-public class MainActivity extends AppCompatActivity implements Fragment1.IUserActionsOnMap, FavoritesFrag.IUserActionsOnMap {
+public class MainActivity extends AppCompatActivity implements FavoritesFrag.IUserActionsOnMap, Fragment1.IUserActionsOnMap {
     private PowerConnectionReceiver receiver;
     private IUserActionsOnMap userActionsController;
     private ViewPager viewPager;
-    protected ScreenSlidePagerAdapter pagerAdapter;
-    //FragmentStatePagerAdapter
+    private PagerAdapter pagerAdapter;
     private PlacesDao placesDao = new PlacesDao(this);
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private boolean isKmToBeSaved = true;//preferences
+    //todo I might want to change to regular SharePref
 
 
-    // the proposed keys to needed preferences values. Some not in use but show the required fields
+    // the proposed keys to needed preferences values
     public final String PREF_NAME = "sharedPreferences";
     public final String TEXT = "Shared_Text";
     public final String RADIUS = "radius";
     public final String JSSTRING = "json_table_backup";
-
-    //ShareProvider
-    private  ShareActionProvider shareActionProvider;
-
     Menu saveMenu;
-
-    /*********************************************************** 
-    /*                                                          */
-    /*     Made by Itai Arnon November 18                       */
-    /*                                                          */ 
-    /*                                                          */
-    /*                                                          */ 
-    /*                                                          */                                                      
-    /*                                                          */
-    /*                                                          */
-    /************************************************************/
-    
-    
-    
-    
-    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // used across the entire app - SP has default name
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        //will create default values for SP
-        defaultPrefData();//to be used in need
-        //Getting a tablet or a mobile controller the factory hides the decision making.
+        //will create default values for S Pref
+        defaultPrefData();//to be expanded in need
+
         userActionsController = ControllersFactory.createUserInteractionsController(this);
 
-        //adds the Notice behind POWER CONNECTED/DISCONNECTED
+
+        //Getting a tablet or a mobile controller the factory hides the decision making.
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_POWER_CONNECTED);
         filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
 
-        //subscribes to the events above
         receiver = new PowerConnectionReceiver();
         registerReceiver(receiver, filter);
 
@@ -99,11 +79,11 @@ public class MainActivity extends AppCompatActivity implements Fragment1.IUserAc
         float radiusDataToBeSaved = 500.0f;
         editor = preferences.edit();//opens the editor
         editor.putFloat(RADIUS, radiusDataToBeSaved);
-        editor.apply(); //commit data to editor
+        editor.apply();
+        //commit data to editor
 
 
-
-
+        //==06092018
         // Runtime permission check
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // If no permission to location ask permission from the user
@@ -114,33 +94,28 @@ public class MainActivity extends AppCompatActivity implements Fragment1.IUserAc
         }
 
 
-        //  ViewPager & PagerAdapter
-        viewPager = findViewById(R.id.pager); //fragment layout replaced by pager layout
+        //  ViewPager and a PagerAdapter
+        viewPager = findViewById(R.id.pager); //fragment layout into pager layout
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
-        //ScreenSlidePagerAdapter
-}
 
-    @Override
+        // We get a reference to the shared preferences object (the file name will be based on the MainActivity.class)
+
+    }
+
+  /*  //todo override removed
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
         saveMenu = menu;
-        MenuItem menuItem = menu.findItem(R.id.action_share);
-        //defines the Action of the ShareProvider
-        shareActionProvider=
-                (ShareActionProvider)MenuItemCompat.getActionProvider(menuItem);
-                    setShareActionIntent("I want to share with you");
+
+        //Also you can do this for sub menu
+        //menu.getItem(firstItemIndex).getSubMenu().getItem(subItemIndex).setChecked(true);
+
         return true;
     }
-        //Couples the ShareAction with intent
-    private void setShareActionIntent(String text) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT,text );
-        shareActionProvider.setShareIntent(intent);
-    }
-    //defines programmatically the action Menu
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -151,10 +126,17 @@ public class MainActivity extends AppCompatActivity implements Fragment1.IUserAc
         // Handle item selection
         switch (item.getItemId()) {
 
+            case R.id.reset_favorite:
+                placesDao.deleteAllPlaces();
+                return true;
+
+            case R.id.reset_pref:
+                resetPreferences();
+                return true;
+
             case R.id.itemKm:
                 toast = Toast.makeText(this, "Changed to kilometers", Toast.LENGTH_LONG);
                 toast.show();
-
                 isKmToBeSaved = true;
                 editor = preferences.edit();
                 editor.putBoolean("isKm", isKmToBeSaved);
@@ -220,14 +202,14 @@ public class MainActivity extends AppCompatActivity implements Fragment1.IUserAc
                 return super.onOptionsItemSelected(item);
 
         }
-    }
-    // method that initiates the SP
+    }*/
+
     private void defaultPrefData() {
         editor = preferences.edit();
         editor.putFloat(RADIUS, 0f);//default radius
         editor.apply();
     }
-    //ViewPager Stack definition
+
     @Override
     public void onBackPressed() {
         if (viewPager.getCurrentItem() == 0) {
@@ -241,52 +223,52 @@ public class MainActivity extends AppCompatActivity implements Fragment1.IUserAc
     }
 
 
-/**
- * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
- * sequence.
- */
-private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+    /**
+     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
+     * sequence.
+     */
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
-    private Fragment[] fragments;//class var
+        private Fragment[] fragments;//class var
 
-    public ScreenSlidePagerAdapter(FragmentManager manager) {
-        super(manager);
-        fragments = new Fragment[2]; //two fragments defined in the stack
-        fragments[0] = new Fragment1();
-        fragments[1] = new FavoritesFrag();
+        public ScreenSlidePagerAdapter(FragmentManager manager) {
+            super(manager);
+            fragments = new Fragment[2];
+            fragments[0] = new Fragment1();
+            fragments[1] = new FavoritesFrag();
+        }
+
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments[position];
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }//pager function
+        // end of inner class
     }
-
-
-    @Override
-    public Fragment getItem(int position) {
-        return fragments[position];
-    }
-
-    @Override
-    public int getCount() {
-        return 2;
-    }//pager function
-    // end of inner class
-
-    //methods are defined for future use
-    public FavoritesFrag getFavoritesFragment() {
-        return (FavoritesFrag) fragments[1];
-    }
-
-    public Fragment1 getSearchFragment()
-    {
-        return (Fragment1) fragments[0];
-    }
-}
 
     //this function activates the function through whichever controller was created in the factory
-    public void onFocusOnLocation(LatLng newLocation, String name) {//name is restricted to google places
+    public void onFocusOnLocation(LatLng newLocation, String name) {//name is restricted no google places
         // Carrying out the user's request, using our controller
         userActionsController.onFocusOnLocation(newLocation, name);
     }
 
+
+    public void resetPreferences()
+    {
+        editor = preferences.edit();//default values
+        editor.putString(TEXT, "");
+        editor.putString(JSSTRING, "");
+        editor.apply();
+
+    }
+
     @Override
-//the activity stops being visible
+    //the activity stops being visible
     protected void onPause() {
         super.onPause();
     }
@@ -296,8 +278,5 @@ private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         super.onDestroy();
         this.unregisterReceiver(receiver);
     }
-
 }
-
-
 

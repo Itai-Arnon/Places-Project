@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.project.itai.FindAPlace.fragments.Fragment1">
+
+
+    <include
+        layout="@layout/toolbar_main"
+        android:id="@+id/toolbar"/>
+
+
+    <EditText
+        android:id="@+id/search_box"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/search_name"
+        android:textSize="14dp"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_below="@id/search_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/search_places"
+            android:padding="2dp"
+            android:layout_alignParentEnd="false"
+            android:layout_weight="1"/>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_recycler_view"
+        android:layout_below="@id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:padding="2dp"
+        android:scrollbars="vertical"
+        android:layout_alignParentEnd="true"/>
+
+
+
+</RelativeLayout>
+
+    <!--android:layout_alignParentStart="true"-->
+
+    <!--android:layout_below="@id/listPlaces"-->
+
+    <!--<ListView-->
+    <!--android:id="@+id/listPlaces"-->
+    <!--android:layout_below="@id/search_button"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="400dp"-->
+    <!--android:smoothScrollbar="true"-->
+    <!--android:layout_alignParentEnd="false"/-->
+
+
+    <!--<Button-->
+    <!--android:id="@+id/search_button"-->
+    <!--android:layout_below="@id/search_box"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="4dp"-->
+    <!--android:text="@string/search_places"-->
+    <!--android:padding="2dp"-->
+
+
+
+
+    <!--<Button-->
+    <!--android:id="@+id/delete_Model"-->
+    <!--android:text="Delete DB"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:padding="2dp"-->
+    <!--android:layout_alignParentEnd="false"-->
+    <!--android:layout_weight="1"/>-->

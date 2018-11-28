@@ -1,5 +1,6 @@
 package com.project.itai.FindAPlace.controllers;
 
+import com.project.itai.FindAPlace.fragments.Fragment1;
 import com.project.itai.FindAPlace.fragments.IUserActionsOnMap;
 import com.google.android.gms.maps.model.LatLng;
 

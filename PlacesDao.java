@@ -14,6 +14,7 @@ import com.project.itai.FindAPlace.constants.PlacesConstants;
 import com.project.itai.FindAPlace.helper.PlacesDBHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /***********************************************WILL REPLACE DAO AT MAIN FILE***********************************/
@@ -40,7 +41,7 @@ public class PlacesDao {
 
     // Adding a new place, will return 1 if no exception was made
     public long addPlace(Place place) {
-        long id;
+        long id = 0;
         //Content values uses put instead of the Result Set object
         SQLiteDatabase db = dbhelper.getWritableDatabase();
         ContentValues newPlacesValues =  getContentValuesFromBean(place);
@@ -88,7 +89,7 @@ public class PlacesDao {
 
     // Update a place - requires the entire bean
     public long updatePlace(Place place) {
-        long id;
+        long id = 0;
         SQLiteDatabase db = dbhelper.getWritableDatabase();
        ContentValues values =  getContentValuesFromBean(place);
 
@@ -141,7 +142,7 @@ public class PlacesDao {
     /***********************************************WILL REPLACE DAO AT MAIN FILE***********************************/
 
 
-
+    //todo fix this function
     public boolean isSamePlace(String name, String overView) {
         boolean exists = true;
         SQLiteDatabase db = dbhelper.getReadableDatabase();

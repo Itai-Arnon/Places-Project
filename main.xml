@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+
+    <item
+        android:id="@+id/reset_favorite"
+        android:title="@string/reset_favorites"
+        android:orderInCategory="10"
+        app:showAsAction="never">
+    </item>
+
+    <item
+        android:id="@+id/reset_pref"
+        android:title="Reset Backup"
+        app:showAsAction="never"
+        android:orderInCategory="20"
+        />
+
+
+    <item
+        android:id="@+id/itemSetting"
+        android:title="@string/settings_title"
+        android:icon = "@drawable/ic_add_white_24dp"
+        app:showAsAction = "ifRoom">
+    <menu>
+
+        <item
+            android:id="@+id/itemKm"
+            android:checkable="true"
+            android:checked="true"
+            android:orderInCategory="30"
+            android:title="Km"
+            app:showAsAction="ifRoom"/>
+
+        <item
+            android:id="@+id/itemMile"
+            android:orderInCategory="50"
+            android:title="Mile"
+            app:showAsAction="ifRoom"/>
+
+
+        <item
+            android:id="@+id/itemRadius1"
+            android:title="Radius 1"
+            android:checkable="true"
+            android:checked="true"
+            android:orderInCategory="60"
+            app:showAsAction="ifRoom"/>
+
+        <item
+            android:id="@+id/itemRadius5"
+            android:title="Radius 5"
+            android:orderInCategory="70"
+            app:showAsAction="ifRoom"/>
+
+    </menu>
+    </item>
+
+        <item
+            android:id="@+id/itemQuit"
+            android:orderInCategory="80"
+            android:title="Quit"
+            app:showAsAction = "never"/>
+
+
+
+</menu>
+
+
+
+
+
+
+
+
+

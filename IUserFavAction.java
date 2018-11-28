@@ -1,10 +1,10 @@
 package com.project.itai.FindAPlace.fragments;
 
-import android.view.View;
-
+import com.project.itai.FindAPlace.beans.Place;
+import com.project.itai.FindAPlace.beans.Place;
 
 public interface IUserFavAction {
 
-      void deleteAllFavorites(View view);
+      void deleteAllFavorites();
 }
 

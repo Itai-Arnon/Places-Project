@@ -1,24 +1,35 @@
 package com.project.itai.FindAPlace.adapters;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.project.itai.FindAPlace.R;
 import com.project.itai.FindAPlace.beans.Place;
+import com.project.itai.FindAPlace.dao.PlacesDao;
 
 import java.util.ArrayList;
 
 
+import android.support.design.widget.Snackbar;
+
+import android.widget.Toast;
 
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     private ArrayList<Place> placesData;
-    private Listener listener;//instance of the interface
-    private LongClickListener longListener; //instance of the interface
+    private Listener listener;
+    private LongClickListener longListener;
+    //instance of the interface
+    // private LongClickListener longListener; //instance of the interface
 
 
     public FavoriteAdapter(ArrayList<Place> placesList, Listener listener, LongClickListener longListener) {
@@ -29,7 +40,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     }
 
 
-    public void setFavoriteAdapter(ArrayList<Place> placesList) {
+
+
+    public void FavoriteAdapter(ArrayList<Place> placesList) {
         this.placesData = new ArrayList<>();
         this.placesData = placesList;
     }
@@ -46,7 +59,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             public void onClick(View v) {
                 Place place = placesData.get(VH.getAdapterPosition());
                 if (listener != null)
-                    //onLocation will be defined completely in FavoriteFrag
                     listener.onLocation(place);
             }
 
@@ -58,18 +70,15 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             public boolean onLongClick(View v) {
                 Place place = placesData.get(VH.getAdapterPosition());
                 if (longListener != null)
-                    //onLongLocation will be defined completely in FavoriteFrag
                     longListener.onLongLocation(place);
                 return false;
             }
         });
 
+
         return VH;
-    }
+}
 
-
-    //ViewHolder is used to populate the CardView
-    //Every card in the adapter goes through this process
     @Override
     public void onBindViewHolder(FavoriteAdapter.ViewHolder holder, final int position) {
         TextView placeName;
@@ -89,41 +98,38 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             city.setText(place.getCity());
 
 
+            /*the image is a const at the moment*/
+
+
         }
     }
 
-    //counts the amount of items in given data
     @Override
     public int getItemCount() {
         return placesData.size();
     }
 
-    //provides better control of what views to show within the CardView
-    @Override
-    public int getItemViewType(final int position) {
-        return R.layout.single_item_view;
+
+public interface Listener {
+
+    void onLocation(Place place);
+}
+
+public interface LongClickListener {
+
+    boolean onLongLocation(Place place);
+}
+
+static class ViewHolder extends RecyclerView.ViewHolder {
+    private CardView singleItemView;
+
+    public ViewHolder(CardView itemView) {
+        super(itemView);
+        singleItemView = itemView;
     }
+}
 
 
-    public interface Listener {
-
-        void onLocation(Place place);
-    }
-
-    public interface LongClickListener {
-
-        boolean onLongLocation(Place place);
-    }
-
-    // ViewHolder is the link between the adapter and the CardView
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView singleItemView;
-
-        public ViewHolder(CardView itemView) {
-            super(itemView);
-            singleItemView = itemView;
-        }
-    }
 
 
 }

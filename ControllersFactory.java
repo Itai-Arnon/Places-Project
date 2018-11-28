@@ -2,6 +2,7 @@ package com.project.itai.FindAPlace.controllers;
 
 import android.support.v4.app.FragmentActivity;
 
+import com.project.itai.FindAPlace.fragments.Fragment1;
 import com.project.itai.FindAPlace.fragments.IUserActionsOnMap;
 import com.project.itai.FindAPlace.R;
 
