@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">FindAPlace</string>
+    <string name="title_activity_maps">Map</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_map">Map</string>
+    <string name="search_places">Search Places</string>
+    <string name="search_name">Search</string>
+    <string name="fav_title">Favorites</string>
+    <string name="resetFavString">Reset Favs</string>
+    <string name="sharedPref">Reset DB</string>
+    <string name="reset_favorites">Reset Favorites</string>
+    <string name="settings_title">Settings</string>
+    <string name="action_share">Share</string>
+    <string name="create_order_title">Create Order</string>
+
+</resources>
+
+
+    <!--<string name="sharedPref">"Reset Preference"</string>-->

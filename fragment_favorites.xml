@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.FavoritesFrag">
+
+
+
+
+    <TextView
+        android:id="@+id/fav_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Favorites Page"
+        android:textSize="18sp"
+        android:textColor="@color/colorExtra2"
+        android:background="@color/colorExtra1"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:gravity="center"
+
+        />
+
+<LinearLayout
+    android:id="@+id/ui_buttons"
+    android:layout_below="@id/fav_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+
+    <Button
+        android:id="@+id/load_favs"
+        android:text="Load Favorites"
+        android:textSize="@dimen/button_txt_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        />
+    <Button
+        android:id="@+id/delete_favs"
+        android:textSize="@dimen/button_txt_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Favorites"
+        android:layout_weight="1"
+        />
+
+</LinearLayout>
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/favorite_recycler_view"
+        android:layout_below="@id/ui_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:padding="0dp"
+        android:scrollbars="vertical"
+        android:layout_alignParentBottom="true"/>
+
+
+
+</RelativeLayout>
+
+
+
+
+    <!--<ListView-->
+    <!--android:id="@+id/listPlaces"-->
+    <!--android:layout_above="@id/deleteAll"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="200dp"-->
+    <!--android:smoothScrollbar="true"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--/>-->
