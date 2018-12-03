@@ -5,61 +5,43 @@
     android:layout_height="match_parent"
     tools:context=".fragments.FavoritesFrag">
 
-
     <include
         layout="@layout/toolbar_main"
         android:id="@+id/toolbar"/>
 
-
     <TextView
-        android:id="@+id/fav_text"
-        android:layout_below="@id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="Favorites Page"
-        android:textSize="18sp"
-        android:textColor="@color/colorExtra2"
-        android:background="@color/colorExtra1"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        />
+    android:id="@+id/fav_text"
+    android:layout_below="@id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:text="Favorites Page"
+    android:textSize="18sp"
+    android:textColor="@color/colorExtra2"
+    android:background="@color/colorExtra1"
+    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+    android:gravity="center"
+    android:layout_alignParentStart="true"/>
 
 
     <Button
         android:id="@+id/load_favs"
         android:layout_below="@id/fav_text"
-        android:text="Load Favorites"
+        android:text="Load Favorties"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-
+        android:layout_alignParentBottom="false"
         />
 
-<!--#### insert list here###-->
-    <!--android:layout_height="70dp"-->
-    <android.support.v7.widget.RecyclerView
+    <!--#### insert list here###-->
 
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/favorite_recycler_view"
         android:layout_below="@id/load_favs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
         android:padding="0dp"
-        android:scrollbars="vertical"
-        android:layout_alignParentBottom="true"/>
+        android:scrollbars="vertical" />
 
 
 
-</RelativeLayout>
-
-
-
-
-    <!--<ListView-->
-    <!--android:id="@+id/listPlaces"-->
-    <!--android:layout_above="@id/deleteAll"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="200dp"-->
-    <!--android:smoothScrollbar="true"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--/>-->
+   </RelativeLayout>
